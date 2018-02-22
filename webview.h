@@ -1600,10 +1600,6 @@ static void webview_external_invoke(id self, SEL cmd,
   w->external_invoke_cb(w, [(NSString *)([message body])UTF8String]);
 }
 
-@interface WKPreferences (WKPrivate)
-@property (nonatomic, setter=_setDeveloperExtrasEnabled:) BOOL _developerExtrasEnabled;
-@end
-
 WEBVIEW_API int webview_init(struct webview *w) {
   w->priv.pool = [[NSAutoreleasePool alloc] init];
   [NSApplication sharedApplication];
