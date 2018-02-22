@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -90,6 +91,9 @@ func handleRPC(w webview.WebView, data string) {
 			log.Println("Color must be RRGGBB or RRGGBBAA")
 			return
 		}
+		if err := w.Eval(fmt.Sprintf(`console.log("changeColor in Go: %s");`, hex)); err != nil {
+			log.Println(err)
+		}
 		i, err := strconv.ParseUint(hex, 16, 64)
 		if err != nil {
 			log.Println(err)
@@ -122,6 +126,7 @@ func main() {
 		Resizable: true,
 		URL:       url,
 		ExternalInvokeCallback: handleRPC,
+		Debug: true,
 	})
 	w.SetColor(255, 255, 255, 255)
 	defer w.Exit()
